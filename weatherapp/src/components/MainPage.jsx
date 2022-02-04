@@ -16,6 +16,7 @@ const MainPage = () => {
 
     const dispatch = useDispatch();
     const city = useSelector((state) => state.city.elements)
+    const weatherData = useSelector((state) => state.weather.elements);
     
   const getCity = async () => {
     try {
@@ -32,7 +33,6 @@ const MainPage = () => {
 
   useEffect(() => {
     setSelectedCity(selectedCity)
-    console.log(city)
 
   }, [selectedCity])
 
@@ -56,6 +56,7 @@ const MainPage = () => {
         
     }
 
+    console.log(weatherData)
 
         return (
             <Container className="searchPage">
@@ -72,6 +73,7 @@ const MainPage = () => {
                         {
                             cities.map((city) =>( <City key={uniqid()} onChange={handleChange} data={cities} />))
                         }
+                     
                     </Col> 
                 </Row>
             </Container>

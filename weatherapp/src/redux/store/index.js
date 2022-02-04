@@ -4,6 +4,7 @@ import { encryptTransform } from 'redux-persist-transform-encrypt'
 import storage from 'redux-persist/lib/storage'
 import thunk from 'redux-thunk' 
 import getCityReducer from '../reducers/city.js'
+import getWeatherReducer from '../reducers/weather.js'
 
 const composeThatAlwaysWorks = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose
 
@@ -12,13 +13,13 @@ export const initialState = {
         elements: [],
     }, 
     weather: {
-        elements: [],
+        elements: '',
     },
 }
 
 const mainReducer = combineReducers({
     city: getCityReducer,
-    // weather: weatherReducer,
+    weather: getWeatherReducer,
 })
 
 const persistConfig = {

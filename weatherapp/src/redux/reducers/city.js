@@ -22,7 +22,7 @@ import { initialState } from '../store'
 //     }
 // }
 
-export default function getCityReducer(state = intialState.jobs, action) {
+export default function getCityReducer(state = initialState.city, action) {
     console.log(action, state)
 
     const { type, payload } = action

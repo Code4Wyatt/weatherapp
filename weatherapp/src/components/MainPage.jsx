@@ -5,23 +5,25 @@ import { fetchCity } from "../redux/actions/index.js"
 import { useState, useEffect } from "react"
 import { useParams } from "react-router-dom"
 import { useSelector, useDispatch } from "react-redux"
+import { addToCityAction } from '../redux/actions/index.js'
+import City from './City'
 
-// const mapDispatchToProps = (dispatch) => ({
-//     fetchJobs: (baseEndpoint, query) => dispatch(fetchJobs(baseEndpoint, query)),
-//   });
-
-const SearchPage = () => {
+const MainPage = () => {
     const [query, setQuery] = useState('')
-    const [city, setCity] = useState([])
+    const [cities, setCities] = useState([])
     const [selectedCity, setSelectedCity] = useState([])
     const params = useParams()
+
+    const dispatch = useDispatch();
+    const city = useSelector((state) => state.city.elements)
     
   const getCity = async () => {
     try {
-      const response = await fetch(baseEndpoint + query)
-      const { data } = await response.json()
+      const response = await fetch(baseEndpoint  + query + '&appid=' + '5849f3063631061f317a5b8542af8b1c')
+      const data = await response.json()
       
-      setCity(data)
+      setCities(data)
+      dispatch(addToCityAction(data))
       console.log("City: ", data)
     } catch (error) {
       console.log(error)
@@ -30,7 +32,8 @@ const SearchPage = () => {
 
   useEffect(() => {
     setSelectedCity(selectedCity)
-    console.log(selectedCity)
+    console.log(city)
+
   }, [selectedCity])
 
     // state = {
@@ -38,8 +41,8 @@ const SearchPage = () => {
     //     jobs: []
     // }
 
-    const baseEndpoint = 'https://openweathermap.org/api/geocoding-api'
-
+    const baseEndpoint = 'http://api.openweathermap.org/geo/1.0/direct?q='
+    const apiKey = process.env.REACT_APP_API_KEY
 
     const handleChange = (e) => {
         setQuery(e.target.value)
@@ -50,7 +53,7 @@ const SearchPage = () => {
         e.preventDefault()
 
         getCity()
-        console.log(data)
+        
     }
 
 
@@ -65,14 +68,14 @@ const SearchPage = () => {
                             <Form.Control type="search" onChange={handleChange} value={query} placeholder="Type and press enter" />
                         </Form>
                     </Col>
-                    <Col xs={10} className='mx-auto mb-5'>
+                   <Col xs={10} className='mx-auto mb-5'>
                         {
-                            jobs.map((jobs) =>( <Job key={uniqid()} onChange={handleChange} data={jobs} />))
+                            cities.map((city) =>( <City key={uniqid()} onChange={handleChange} data={cities} />))
                         }
-                    </Col>
+                    </Col> 
                 </Row>
             </Container>
         )
     }
 
-export default SearchPage
+export default MainPage

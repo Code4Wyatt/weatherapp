@@ -13,7 +13,7 @@ function App() {
         <div className="app">
           <Routes>
           <Route path="/" element={<MainPage />} />
-          <Route path="/:coordinates" element={<WeatherResults/>}/>
+          {/* <Route path="/:coordinates" element={<WeatherResults/>}/> */}
           </Routes>
           </div>
     </BrowserRouter>

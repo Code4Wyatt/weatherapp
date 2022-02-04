@@ -4,8 +4,15 @@ export const REMOVE_CITY = 'REMOVE_CITY'
 export const SET_WEATHER = 'SET_WEATHER'
 export const REMOVE_WEATHER = 'REMOVE_WEATHER'
 
+
+
 export const addToCityAction = (data) => ({
     type: ADD_TO_CITY,
+    payload: data,
+})
+
+export const addToWeatherAction = (data) => ({
+    type: SET_WEATHER,
     payload: data,
 })
 
@@ -25,10 +32,10 @@ export const fetchCity = (url, query) => {
                     payload: city,
                 });
             } else {
-                console.log("Error: ", errorMessage)
+                console.log("error")
             }
         } catch (error) {
-            console.log(error)
+            console.log("error")
         }
     }
 }
@@ -36,7 +43,7 @@ export const fetchCity = (url, query) => {
 export const fetchWeather = (url, query) => {
     return async (dispatch, getState) => {
         try {
-            let response = await fetch(url + query)
+            let response = await fetch(url + "/" + query)
             if (response.ok) {
                 const { weather } = await response.json()
                 dispatch({
@@ -44,10 +51,10 @@ export const fetchWeather = (url, query) => {
                     payload: weather,
                 });
             } else {
-                console.log("Error: ", errorMessage)
+                console.log("error")
             }
         } catch (error) {
-            console.log(error)
+            console.log("error")
         }
     }
 }

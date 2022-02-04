@@ -25,7 +25,26 @@ export const fetchCity = (url, query) => {
                     payload: city,
                 });
             } else {
-                console.log("error: ", errorMessage)
+                console.log("Error: ", errorMessage)
+            }
+        } catch (error) {
+            console.log(error)
+        }
+    }
+}
+
+export const fetchWeather = (url, query) => {
+    return async (dispatch, getState) => {
+        try {
+            let response = await fetch(url + query)
+            if (response.ok) {
+                const { weather } = await response.json()
+                dispatch({
+                    type: "SET_WEATHER",
+                    payload: weather,
+                });
+            } else {
+                console.log("Error: ", errorMessage)
             }
         } catch (error) {
             console.log(error)
